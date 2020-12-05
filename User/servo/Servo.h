@@ -10,7 +10,7 @@
 #define Servo_Left   1620
 
 #define Kp      100
-#define Kd      0.2
+#define Kd      0.8
 
 extern void TIM_PWM_Init(void);
 extern void Servo_open(int dir1);

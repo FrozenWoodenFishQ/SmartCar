@@ -99,3 +99,9 @@ void motor_forward(int speed)
 	motor_run(motor_3,speed);
 	motor_run(motor_4,0);
 }
+
+void PIControl(float Speed)
+{
+	float error;
+	
+}

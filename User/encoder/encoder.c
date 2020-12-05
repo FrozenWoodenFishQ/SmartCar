@@ -25,6 +25,7 @@ void Encoder_TIM_Init(void)
 	TIM_TimeBasestruct.TIM_ClockDivision = TIM_CKD_DIV1;
 	TIM_TimeBasestruct.TIM_CounterMode = TIM_CounterMode_Up;
 	TIM_TimeBaseInit(coder_1_TIM, &TIM_TimeBasestruct);
+	TIM_TimeBaseInit(coder_2_TIM, &TIM_TimeBasestruct);
 	
 	TIM_EncoderInterfaceConfig(coder_1_TIM,TIM_EncoderMode_TI12,TIM_ICPolarity_Rising,TIM_ICPolarity_Rising);
 	TIM_ICStructInit(&TIM_ICInitstruct);
@@ -34,7 +35,7 @@ void Encoder_TIM_Init(void)
 	TIM_Cmd(coder_1_TIM,ENABLE);
 }
 
-int Getcounter(void)
+int Getcounter1(void)
 {
 	int count,True;
 	count = TIM_GetCounter(coder_1_TIM);
@@ -46,10 +47,23 @@ int Getcounter(void)
 	return True;
 }
 
-float RealSpeed(int speed)
+int Getcounter2(void)
 {
-	float Ts = 1,Line = 512;
-	float n;
-	n = ((float)speed)/(Ts*Line);
-	return n;
+	int count0,True0;
+	count0 = TIM_GetCounter(coder_2_TIM);
+	TIM_SetCounter(coder_2_TIM,0);
+	if(count0 < 32767)
+		True0 = count0;
+	else
+		True0 = count0 - 65535;
+	return True0;
+}
+
+float RealSpeed(int speed,int timems)
+{
+	float Ts = 0.02,Line = 512;
+	float n,nx;
+	n = ((float)speed*1000)/(timems*Line);
+	nx=n*60;
+	return nx;
 }

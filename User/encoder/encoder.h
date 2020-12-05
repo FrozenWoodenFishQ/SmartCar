@@ -8,6 +8,7 @@
 #define coder_2_TIM  TIM4
 
 void Encoder_TIM_Init(void);
-int Getcounter(void);
-float RealSpeed(int speed);
+int Getcounter1(void);
+int Getcounter2(void);
+float RealSpeed(int speed,int timems);
 #endif
