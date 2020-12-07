@@ -61,7 +61,7 @@ int Getcounter2(void)
 
 float RealSpeed(int speed,int timems)
 {
-	float Ts = 0.02,Line = 512;
+	float Line = 512;
 	float n,nx;
 	n = ((float)speed*1000)/(timems*Line);
 	nx=n*60;

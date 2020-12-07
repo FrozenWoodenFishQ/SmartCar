@@ -94,14 +94,37 @@ void motor_run(int motor_num,int speed_set)
 
 void motor_forward(int speed)
 {
-	motor_run(motor_1,0);
-	motor_run(motor_2,speed);
-	motor_run(motor_3,speed);
-	motor_run(motor_4,0);
+	if(speed > 0)
+	{
+		motor_run(motor_1,0);
+		motor_run(motor_2,speed);
+		motor_run(motor_3,speed);
+		motor_run(motor_4,0);
+	}
+	else
+	{
+		motor_run(motor_1,speed);
+		motor_run(motor_2,0);
+		motor_run(motor_3,0);
+		motor_run(motor_4,speed);
+	}
 }
 
 void PIControl(float Speed)
 {
-	float error;
-	
+	float error,movePWM,dev;
+	static float lasterr;
+	error = Set - Speed;
+	dev = error - lasterr;
+	movePWM = KP*dev + KI*error;
+	if(movePWM >= 350)
+	{
+		movePWM = 350;
+	}
+	else if(movePWM < 0)
+	{
+		movePWM = 0;
+	}
+	motor_forward((int) movePWM);
+	lasterr = error;
 }

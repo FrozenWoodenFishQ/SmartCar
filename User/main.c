@@ -41,7 +41,7 @@ void turn(int con[5])
   */
 int main(void)
 {		
-	int i;
+	int i = 0;
 	float speed;
 	// 配置串口
 	USART_Config();
@@ -54,7 +54,7 @@ int main(void)
 	
 	//printf("\r\n ----这是一个ADC多通道采集实验----\r\n");
 	Servo_open(Servo_Mid);
-	motor_forward(100);
+  //motor_forward(100);
 	
 	while (1)
 	{	
@@ -85,10 +85,10 @@ int main(void)
 //		printf("归一后的值:DG3  %d\n",DG_4);
 //		printf("归一后的值:DG4  %d\n",DG_5);
 //			printf("\r\n\r\n");
-//		  vcan_sendware((uint8_t*) ADC_ConvertedValueLocal,5*4);
-			speed = RealSpeed(Getcounter1(),300);
-			printf("转速：%.1f\n\n\n",speed);
-			Systick_Delay_ms(300);	 
+			speed = RealSpeed(Getcounter1(),20);
+		PIControl(speed);
+		vcan_sendware((uint8_t*) &speed,4);
+			Systick_Delay_ms(20);		
 	}
 }
 /*********************************************END OF FILE**********************/

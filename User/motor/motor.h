@@ -6,12 +6,14 @@
 #define motor_3 3
 #define motor_4 4
 
-#define Set     4
-#define KP      10
-#define KI      1
+#define Set     6000
+#define KP      0.08
+#define KI      0.08
+
 
 extern void tim_motor_init(void);
 extern void motor_run(int motor_num,int speed_set);
 void motor_forward(int speed);
+extern void PIControl(float Speed);
 
 #endif
