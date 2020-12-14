@@ -5,12 +5,14 @@
 #define	RCC_APBPeriph_TIMx	RCC_APB1Periph_TIM2
 #define	TIM_GPIO	GPIOA
 #define TIM_SERVO	TIM2
-#define Servo_Mid    1480
-#define Servo_Right  1325
-#define Servo_Left   1620
+#define Servo_Mid    1485
+#define Servo_Right  1350
+#define Servo_Left   1600
 
-#define Kp      100
-#define Kd      0.8
+#define Kp      160
+#define Kd      90
+
+static float LastE = 0;
 
 extern void TIM_PWM_Init(void);
 extern void Servo_open(int dir1);

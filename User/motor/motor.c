@@ -110,13 +110,12 @@ void motor_forward(int speed)
 	}
 }
 
-void PIControl(float Speed)
+void PIDControl(float Speed,int setting)
 {
-	float error,movePWM,dev;
-	static float lasterr;
-	error = Set - Speed;
+	float error,dev;
+	error = setting - Speed;
 	dev = error - lasterr;
-	movePWM = KP*dev + KI*error;
+	movePWM += KP*dev + KI*error;
 	if(movePWM >= 350)
 	{
 		movePWM = 350;

@@ -80,8 +80,7 @@ int Turn(int c[5])
 {
 	int command;
 	float error;
-	static float LastE;
-	if(c[0]==0 && c[1]==0 && c[2]==0 && c[3]==0 && c[4]==0)
+	if(c[1]==0 && c[2]==0 && c[3]==0)
 	{
 		LastE = 0;
 		return Servo_Mid;

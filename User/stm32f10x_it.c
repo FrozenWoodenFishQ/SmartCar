@@ -140,7 +140,23 @@ void SysTick_Handler(void)
 
 void DMA2_Channel4_5_IRQHandler(void)
 {
-	
+}
+
+void USART1_IRQHandler(void)
+{
+	if(USART_GetITStatus(USART1, USART_IT_RXNE) != RESET)
+	{
+		
+		USART_ClearITPendingBit(USART1, USART_IT_RXNE);
+	}
+}
+
+void TIM3_IRQHandler(void)
+{
+	if(TIM_GetITStatus(TIM3, TIM_IT_Update) == SET)
+	{
+		TIM_ClearITPendingBit(TIM3, TIM_IT_Update);
+	}
 }
 /******************************************************************************/
 /*                 STM32F10x Peripherals Interrupt Handlers                   */
