@@ -22,24 +22,26 @@ float speed;
 // 局部变量，用于保存转换计算后的电压值 	 
 float ADC_ConvertedValueLocal[NOFCHANEL];        
 
-// 软件延时
-void Delay(__IO uint32_t nCount)
-{
-  for(; nCount != 0; nCount--);
-} 
-
 void turn(int con[5])
 {
-	if((conv[0]+conv[1]+conv[2]+conv[3]+conv[4])<=15)
+	if((con[0]+con[1]+con[2]+con[3]+con[4])<=15)
 		{
 			motor_forward(0);
 			return;
 		}
-	if(con[1]<=35 | con[3]<=35)
-		PIDControl(speed,3000);
-	else
+	if(con[1]<=30 || con[3]<=30)
+		PIDControl(speed,2900);
+	else if(con[2]>=62&&con[4] < Loopdetect)
 		PIDControl(speed,Set);
-	Servo_open(Turn(con));
+	if(con[2]>=62 && con[2]<=88)
+	{
+		Servo_open(Turn(con,40,12));
+	}
+	else
+	{
+		PIDControl(speed,2700);
+		Servo_open(Turn(con,Kp,Kd));
+	}
 }
 
 /**
@@ -76,8 +78,8 @@ int main(void)
 			conv[n]=setto_1(ADC_ConvertedValueLocal[n]);
 		}
 			speed = RealSpeed(Getcounter1(),20);
+		//Servo_open(Servo_Mid);
 		turn(conv);
-	Servo_open(Turn(conv));
 //			printf("\r\n DG0 value = %f V \r\n",ADC_ConvertedValueLocal[0]);
 //			printf("\r\n DG1 value = %f V \r\n",ADC_ConvertedValueLocal[1]);
 //			printf("\r\n DG2 value = %f V \r\n",ADC_ConvertedValueLocal[2]);

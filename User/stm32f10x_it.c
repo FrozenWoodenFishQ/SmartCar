@@ -25,6 +25,9 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f10x_it.h"
+#include "motor.h"
+#include "Servo.h"
+#include "Systick_Q.h"
 
 /** @addtogroup STM32F10x_StdPeriph_Template
   * @{
@@ -156,6 +159,30 @@ void TIM3_IRQHandler(void)
 	if(TIM_GetITStatus(TIM3, TIM_IT_Update) == SET)
 	{
 		TIM_ClearITPendingBit(TIM3, TIM_IT_Update);
+	}
+}
+
+static int startflag = 0;
+void EXTI9_5_IRQHandler(void)
+{
+	if(EXTI_GetITStatus(EXTI_Line8) != RESET)
+	{
+		if(startflag == 0)
+		{
+			motor_forward(100);
+			Servo_open(Servo_Left);
+			Delay(100);
+			startflag++;
+		}
+		else
+		{
+			motor_forward(100);
+			Delay(60);
+			Servo_open(Servo_Right);
+			Delay(100);
+			motor_forward(0);
+		}
+		EXTI_ClearITPendingBit(EXTI_Line8);
 	}
 }
 /******************************************************************************/

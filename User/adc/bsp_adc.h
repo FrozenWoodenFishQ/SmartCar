@@ -58,7 +58,7 @@
 #define   DG_4    conv[3]
 #define   DG_5    conv[4]
 
-#define MAX  2.1
+#define MAX  2.3
 #define MIN  0.15
 
 /**************************º¯ÊıÉùÃ÷********************************/

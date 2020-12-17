@@ -6,9 +6,9 @@
 #define motor_3 3
 #define motor_4 4
 
-#define Set     5400
+#define Set     5600
 #define KP      0.04
-#define KI      0.008
+#define KI      0.009
 
 static float lasterr = 0,movePWM = 0,evenlast = 0;
 

@@ -11,3 +11,13 @@ void Systick_Delay_ms(uint32_t time)
 	
 	SysTick->CTRL &= ~(SysTick_CTRL_ENABLE_Msk);
 }
+
+void Delay(uint32_t timems)
+{
+	u16 i=0;  
+   while(timems--)
+   {
+      i=12000; 
+      while(i--) ;    
+   }
+}

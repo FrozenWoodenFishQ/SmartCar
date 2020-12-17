@@ -4,4 +4,5 @@
 #include "core_cm3.h"
 
 void Systick_Delay_ms(uint32_t time);
+void Delay(uint32_t timems);
 #endif  /* __Systick_Q */

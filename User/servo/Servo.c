@@ -76,14 +76,24 @@ void protect_comp(int* command)
 	
 }
 
-int Turn(int c[5])
+int Turn(int c[5],int P,int D)
 {
 	int command;
-	float error;
+	float error,looperr;
 	if(c[1]==0 && c[2]==0 && c[3]==0)
 	{
 		LastE = 0;
 		return Servo_Mid;
+	}
+	else if(c[4]>=Loopdetect && c[1]>=88 && loopflag ==0)
+	{
+		if(Looplasterr == 0)
+			loopflag++;
+		looperr = ((float) (c[0]-c[4]))/((float) (c[0]+c[4]));
+		command = (200*error + 70 * (error-LastE)) + Servo_Mid;
+		Looplasterr = looperr;
+		protect_comp(&command);
+		return command;
 	}
 	/*if(c[1] > c[2] && c[1] > c[3])
 	{
@@ -103,10 +113,24 @@ int Turn(int c[5])
 	}*/
 	else
 	{
+		Looplasterr = 0;
 		error = ((float) (c[1]-c[3]))/((float) (c[1]+c[3]));
-		command = (Kp*error + Kd * (error-LastE)) + Servo_Mid;
+		command = (P*error + D * (error-LastE)) + Servo_Mid;
 		LastE = error;
 		protect_comp(&command);
 		return command;
 	}
+}
+
+void Loop(void)
+{
+	if(loopflag == 0)
+	{
+		while(conv[0]>=Loopdetect);
+		Servo_open(Servo_Right+15);
+		while(conv[1]>=85);
+		loopflag++;
+	}
+	else
+		return;
 }

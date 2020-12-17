@@ -339,7 +339,7 @@
               <MiscControls></MiscControls>
               <Define>STM32F10X_HD, USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\..\Libraries\CMSIS;..\..\User;..\..\Libraries\FWlib\inc;..\..\User\usart;..\..\User\adc;..\..\User\sys;..\..\User\servo;..\..\User\motor;..\..\User\encoder</IncludePath>
+              <IncludePath>..\..\Libraries\CMSIS;..\..\User;..\..\Libraries\FWlib\inc;..\..\User\usart;..\..\User\adc;..\..\User\sys;..\..\User\servo;..\..\User\motor;..\..\User\encoder;..\..\User\ONOFF</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -597,6 +597,11 @@
               <FileName>encoder.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\User\encoder\encoder.c</FilePath>
+            </File>
+            <File>
+              <FileName>EXIT-Q.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\User\ONOFF\EXIT-Q.c</FilePath>
             </File>
           </Files>
         </Group>
